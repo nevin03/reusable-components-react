@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import axiosInstance from "@/utils/axios";
 
 const useTableFetch = ({
   key,
@@ -13,22 +14,22 @@ const useTableFetch = ({
   keepPreviousData = true,
   refetchOnWindowFocus = false,
 }) => {
-  const params = new URLSearchParams({
+  const params = {
     _page: pageIndex + 1,
     _limit: pageSize,
-  });
+  };
 
   if (filterKey && filterValue) {
-    params.set(`${filterKey}_like`, filterValue);
+    params[`${filterKey}_like`] = filterValue;
   }
 
   const fetchData = async () => {
-    const response = await fetch(`${url}?${params}`);
-    const totalCount = response.headers.get("x-total-count");
-    const data = await response.json();
+    const response = await axiosInstance.get(url, { params });
     return {
-      data,
-      totalCount: Number(totalCount || data.length),
+      data: response.data,
+      totalCount: Number(
+        response.headers["x-total-count"] || response.data.length
+      ),
     };
   };
 
