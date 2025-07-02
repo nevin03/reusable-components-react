@@ -16,4 +16,5 @@ export const alias = {
   "@utils": resolve("utils"),
   "@hooks": resolve("hooks"),
   "@assets": resolve("assets"),
+  "@pages": resolve("components/pages"),
 };
