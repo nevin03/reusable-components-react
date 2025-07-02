@@ -25,8 +25,14 @@ const Table = ({
   });
 
   const [columnSizing, setColumnSizing] = useState(() => {
-    const saved = localStorage.getItem(LOCAL_STORAGE_KEY);
-    return saved ? JSON.parse(saved) : {};
+    try {
+      const saved = localStorage.getItem(LOCAL_STORAGE_KEY);
+      return saved && saved !== "undefined" ? JSON.parse(saved) : {};
+    } catch (e) {
+      console.error("Invalid column sizing data in localStorage:", e);
+      localStorage.removeItem(LOCAL_STORAGE_KEY); // optional: clear corrupted data
+      return {};
+    }
   });
 
   const handleColumnResize = (newSizing) => {
