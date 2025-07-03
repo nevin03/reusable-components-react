@@ -1,6 +1,8 @@
 import { useState, Fragment, useId, useCallback } from "react";
 import { Dialog, DialogTitle, Transition } from "@headlessui/react";
+import { X } from "lucide-react";
 import PropTypes from "prop-types";
+
 const sizeClasses = {
   sm: "max-w-sm",
   md: "max-w-md",
@@ -15,6 +17,7 @@ const colorClasses = {
   blue: "bg-blue-100",
   black: "bg-black text-white",
 };
+
 export const useModal = () => {
   const [isOpen, setIsOpen] = useState(false);
   const titleId = useId();
@@ -37,25 +40,37 @@ export const useModal = () => {
           onClose={close}
           aria-labelledby={modalTitle ? titleId : undefined}
         >
+          {/* Backdrop */}
           <div className="fixed inset-0 bg-black/40 backdrop-blur-sm" />
+
+          {/* Modal Container */}
           <div className="fixed inset-0 flex items-center justify-center p-4">
             <div
-              className={`w-full transform rounded-lg p-6 shadow-xl transition-all ${
-                colorClasses[color] || "bg-white"
-              } ${sizeClasses[size]}`}
+              className={`w-full transform rounded-lg shadow-xl transition-all ${colorClasses[color]} ${sizeClasses[size]}`}
             >
-              {modalTitle && (
-                <DialogTitle
-                  id={titleId}
-                  className="text-lg font-semibold mb-4"
+              {/* Header */}
+              <div className="flex items-center justify-between p-4 border-b">
+                {modalTitle && (
+                  <DialogTitle
+                    id={titleId}
+                    className="text-lg font-semibold text-gray-900"
+                  >
+                    {modalTitle}
+                  </DialogTitle>
+                )}
+                <button
+                  onClick={close}
+                  className="text-gray-400 hover:text-gray-600 transition"
                 >
-                  {modalTitle}
-                </DialogTitle>
-              )}
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
 
-              <div>{children}</div>
+              {/* Scrollable Body with hidden scrollbar */}
+              <div className="p-4 h-full ">{children}</div>
 
-              {footer && <div className="mt-4">{footer}</div>}
+              {/* Footer */}
+              {footer && <div className="p-4 border-t">{footer}</div>}
             </div>
           </div>
         </Dialog>
