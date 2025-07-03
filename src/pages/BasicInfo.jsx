@@ -1,5 +1,5 @@
+// src/pages/BasicInfo.jsx
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import { useCustomForm } from "@/hooks/useFormik";
 import { step1Schema } from "@/utils/validations";
 import Button from "@/components/shared/Button";
@@ -8,8 +8,7 @@ import Radio from "@/components/shared/Radio";
 import Input from "@/components/shared/Input";
 import useFormStore from "@/store/useFormStore";
 
-const BasicInfo = () => {
-  const navigate = useNavigate();
+const BasicInfo = ({ onNext }) => {
   const { formData, setFormData } = useFormStore();
 
   const formik = useCustomForm({
@@ -22,16 +21,14 @@ const BasicInfo = () => {
     },
     validationSchema: step1Schema,
     onSubmit: (values, { setSubmitting }) => {
-      setFormData(values);
-      navigate("/address");
+      setFormData({ ...formData, ...values });
+      onNext();
       setSubmitting(false);
     },
   });
 
   return (
-    <div className="max-w-xl mx-auto p-6 bg-white rounded shadow mt-10">
-      <h2 className="text-2xl font-bold mb-4">Basic Information</h2>
-
+    <div className="w-full p-4">
       <form onSubmit={formik.handleSubmit} className="space-y-4">
         <Input
           label="First Name"
@@ -55,7 +52,6 @@ const BasicInfo = () => {
           error={formik.errors.age}
           touched={formik.touched.age}
         />
-
         <div>
           <label className="block font-medium mb-1">Gender</label>
           <div className="flex gap-4">
@@ -74,7 +70,6 @@ const BasicInfo = () => {
             <div className="text-red-500 text-sm">{formik.errors.gender}</div>
           )}
         </div>
-
         <Select
           name="role"
           label="Role"
@@ -90,10 +85,11 @@ const BasicInfo = () => {
           touched={formik.touched.role}
         />
 
-        <div className="pt-4">
+        <div className=" flex justify-end">
           <Button
             type="submit"
             color="primary"
+            variant="rounded"
             loading={formik.isSubmitting}
             disabled={formik.isSubmitting}
           >

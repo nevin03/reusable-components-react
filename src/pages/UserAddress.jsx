@@ -1,14 +1,13 @@
-// src/pages/UserAddress.jsx
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import Input from "@/components/shared/Input";
 import Button from "@/components/shared/Button";
 import { useCustomForm } from "@/hooks/useFormik";
 import { step2Schema } from "@/utils/validations";
 import useFormStore from "@/store/useFormStore";
+import GooglePlacesAutocomplete from "@/components/shared/places-api";
+import PropTypes from "prop-types";
 
-const UserAddress = () => {
-  const navigate = useNavigate();
+const UserAddress = ({ onNext, onBack }) => {
   const { formData, setFormData } = useFormStore();
 
   const formik = useCustomForm({
@@ -22,57 +21,70 @@ const UserAddress = () => {
     },
     validationSchema: step2Schema,
     onSubmit: (values) => {
-      setFormData(values);
-      navigate("/user-info");
+      setFormData({ ...formData, ...values });
+      onNext(); // Move to next step
     },
   });
 
+  const handlePlaceSelect = (selected) => {
+    formik.setValues({
+      ...formik.values,
+      ...selected,
+    });
+  };
+
   return (
-    <form
-      onSubmit={formik.handleSubmit}
-      className="space-y-4 mt-10 max-w-xl mx-auto p-6 bg-white rounded shadow"
-    >
-      <Input
-        label="Address"
-        name="address"
-        as="textarea"
-        {...formik.getFieldProps("address")}
-        error={formik.errors.address}
-        touched={formik.touched.address}
-      />
+    <form onSubmit={formik.handleSubmit} className="p-4">
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-1">
+          City / Location
+        </label>
+        <GooglePlacesAutocomplete onPlaceSelect={handlePlaceSelect} />
+      </div>
+
       <Input
         label="Zip Code"
         name="zip"
-        {...formik.getFieldProps("zip")}
+        value={formik.values.zip}
+        onChange={formik.handleChange}
+        onBlur={formik.handleBlur}
         error={formik.errors.zip}
         touched={formik.touched.zip}
       />
       <Input
-        label="City"
-        name="city"
-        {...formik.getFieldProps("city")}
-        error={formik.errors.city}
-        touched={formik.touched.city}
-      />
-      <Input
         label="State"
         name="state"
-        {...formik.getFieldProps("state")}
+        value={formik.values.state}
+        onChange={formik.handleChange}
+        onBlur={formik.handleBlur}
         error={formik.errors.state}
         touched={formik.touched.state}
       />
-
       <Input
         label="Country"
         name="country"
-        {...formik.getFieldProps("country")}
+        value={formik.values.country}
+        onChange={formik.handleChange}
+        onBlur={formik.handleBlur}
         error={formik.errors.country}
         touched={formik.touched.country}
       />
       <Input
+        label="Address"
+        name="address"
+        as="textarea"
+        value={formik.values.address}
+        onChange={formik.handleChange}
+        onBlur={formik.handleBlur}
+        error={formik.errors.address}
+        touched={formik.touched.address}
+      />
+      <Input
         label="Contact"
         name="contact"
-        {...formik.getFieldProps("contact")}
+        value={formik.values.contact}
+        onChange={formik.handleChange}
+        onBlur={formik.handleBlur}
         error={formik.errors.contact}
         touched={formik.touched.contact}
       />
@@ -81,16 +93,22 @@ const UserAddress = () => {
         <Button
           type="button"
           color="secondary"
-          onClick={() => navigate("/user-info")}
+          variant="rounded"
+          onClick={onBack}
         >
           Back
         </Button>
-        <Button type="submit" color="primary">
+        <Button type="submit" variant="rounded" color="primary">
           Continue
         </Button>
       </div>
     </form>
   );
+};
+
+UserAddress.propTypes = {
+  onNext: PropTypes.func.isRequired,
+  onBack: PropTypes.func.isRequired,
 };
 
 export default UserAddress;
