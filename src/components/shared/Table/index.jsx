@@ -23,7 +23,6 @@ const Table = ({
     pageSize: initialPageSize,
   });
 
-  // ✅ FIXED: Prevent JSON.parse error
   const [columnSizing, setColumnSizing] = useState(() => {
     const saved = localStorage.getItem(LOCAL_STORAGE_KEY);
     return saved && saved !== "undefined" ? JSON.parse(saved) : {};
