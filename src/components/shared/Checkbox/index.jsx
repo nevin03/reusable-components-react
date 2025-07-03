@@ -1,13 +1,17 @@
+// src/components/shared/Checkbox/index.jsx
 import PropTypes from "prop-types";
+import React from "react";
 
-function Checkbox({ label, name, className = "", ...rest }) {
+function Checkbox({ name, value, label, checked, onChange, className = "" }) {
   return (
     <label className={`inline-flex items-center space-x-2 ${className}`}>
       <input
         type="checkbox"
         name={name}
+        value={value}
+        checked={checked}
+        onChange={onChange}
         className="form-checkbox h-4 w-4 text-blue-600"
-        {...rest}
       />
       <span className="text-sm text-gray-700">{label}</span>
     </label>
@@ -15,8 +19,12 @@ function Checkbox({ label, name, className = "", ...rest }) {
 }
 
 Checkbox.propTypes = {
-  label: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  checked: PropTypes.bool,
+  onChange: PropTypes.func,
   className: PropTypes.string,
 };
+
 export default Checkbox;
