@@ -1,9 +1,11 @@
 import React from "react";
 import Table from "@/components/shared/Table";
-import PropTypes from "prop-types";
 import Button from "@/components/shared/Button";
+import { useNavigate } from "react-router-dom";
 
-const UsersData = ({ onBack, onClose }) => {
+const UsersData = () => {
+  const navigate = useNavigate();
+
   const columns = [
     {
       header: "Name",
@@ -55,22 +57,21 @@ const UsersData = ({ onBack, onClose }) => {
   };
 
   return (
-    <div className="space-y-6">
-      <Table columns={columns} data={data} initialPageSize={2} />
-
-      <div className="flex justify-between pt-4 border-t">
-        <button
-          onClick={onBack}
-          className="px-4 py-2 text-gray-700 bg-gray-200 rounded hover:bg-gray-300"
+    <div className="flex">
+      {/* Navbar */}
+      <nav className="w-40 min-h-screen bg-gray-100 flex flex-col items-start p-4">
+        <Button
+          type="button"
+          color="primary"
+          variant="rounded"
+          onClick={() => navigate("/")}
         >
-          Back
-        </button>
-        <button
-          onClick={onClose}
-          className="px-4 py-2 text-white bg-green-600 rounded hover:bg-green-700"
-        >
-          Submit
-        </button>
+          Home
+        </Button>
+      </nav>
+      {/* Main Content */}
+      <div className="flex-1 p-6 space-y-6">
+        <Table columns={columns} data={data} initialPageSize={2} />
       </div>
     </div>
   );
