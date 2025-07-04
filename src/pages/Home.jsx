@@ -1,39 +1,8 @@
 // src/pages/Home.jsx
-import React, { useState } from "react";
-import Button from "@/components/shared/Button";
-import { useModal } from "@/components/shared/Modal/useModal";
-import BasicInfo from "./BasicInfo";
-import UserAddress from "./UserAddress";
-import UserAccess from "./UserAccess";
-import UsersData from "./UsersData";
+import React from "react";
+import StepperModal from "./StepperModal";
 
 const Home = () => {
-  const { ModalUI, open, close } = useModal();
-  const [step, setStep] = useState(0);
-
-  const steps = [
-    {
-      title: "Basic Info",
-      component: <BasicInfo onNext={() => setStep(1)} />,
-    },
-    {
-      title: "User Address",
-      component: (
-        <UserAddress onNext={() => setStep(2)} onBack={() => setStep(0)} />
-      ),
-    },
-    {
-      title: "User Access",
-      component: (
-        <UserAccess onNext={() => setStep(3)} onBack={() => setStep(1)} />
-      ),
-    },
-    {
-      title: "Users List",
-      component: <UsersData onBack={() => setStep(2)} onClose={close} />,
-    },
-  ];
-
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-100 via-secondary-100 to-tertiary-100 px-4 py-12">
       <div className="relative max-w-lg w-full bg-white rounded-2xl shadow-xl p-8 text-center space-y-8 transform transition-all hover:shadow-2xl">
@@ -47,22 +16,10 @@ const Home = () => {
             community today!
           </p>
           <div className="mt-8">
-            <Button
-              onClick={open}
-              variant="rounded"
-              color="secondary"
-              size="sm"
-              className="w-full sm:w-auto px-8 py-3 text-lg font-semibold transform transition-transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-secondary-200"
-            >
-              Add User
-            </Button>
+            <StepperModal />
           </div>
         </div>
       </div>
-
-      <ModalUI modalTitle={steps[step].title} size="md">
-        {steps[step].component}
-      </ModalUI>
     </div>
   );
 };
