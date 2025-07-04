@@ -3,7 +3,7 @@ import { useModal } from "@/components/shared/Modal/useModal";
 import BasicInfo from "@/pages/BasicInfo";
 import UserAddress from "@/pages/UserAddress";
 import UserAccess from "@/pages/UserAccess";
-import UsersData from "@/pages/UsersData";
+import UserPass from "@/pages/UserPass";
 import Button from "@/components/shared/Button";
 
 const StepperModal = () => {
@@ -11,7 +11,10 @@ const StepperModal = () => {
   const [step, setStep] = useState(0);
 
   const steps = [
-    { title: "Basic Info", component: <BasicInfo onNext={() => setStep(1)} /> },
+    {
+      title: "Basic Info",
+      component: <BasicInfo onNext={() => setStep(1)} />,
+    },
     {
       title: "Address",
       component: (
@@ -25,8 +28,8 @@ const StepperModal = () => {
       ),
     },
     {
-      title: "Users",
-      component: <UsersData onBack={() => setStep(2)} onClose={close} />,
+      title: "Security",
+      component: <UserPass onBack={() => setStep(2)} closeModal={close} />,
     },
   ];
 
@@ -36,7 +39,7 @@ const StepperModal = () => {
         onClick={open}
         className="px-4 py-2 bg-blue-600 text-white rounded"
       >
-        Open Stepper Modal
+        Add User
       </Button>
 
       <ModalUI modalTitle={steps[step].title} size="md">
