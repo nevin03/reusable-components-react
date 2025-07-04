@@ -66,8 +66,10 @@ export const useModal = () => {
                 </button>
               </div>
 
-              {/* Scrollable Body with hidden scrollbar */}
-              <div className="p-4 h-full ">{children}</div>
+              {/* Scrollable Body with scrollbar hidden */}
+              <div className="p-4 max-h-[70vh] overflow-y-auto scrollbar-hide">
+                {children}
+              </div>
 
               {/* Footer */}
               {footer && <div className="p-4 border-t">{footer}</div>}
