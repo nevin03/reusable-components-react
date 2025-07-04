@@ -23,6 +23,9 @@ const variantStyles = {
       "bg-tertiary-100 text-tertiary-700 rounded-full hover:bg-tertiary-200",
     red: "bg-red-100 text-red-700 rounded-full hover:bg-red-200",
   },
+  custom: {
+    none: "",
+  },
 };
 
 const sizeStyles = {
@@ -72,8 +75,8 @@ const Button = ({
 Button.propTypes = {
   children: PropTypes.node.isRequired,
   onClick: PropTypes.func,
-  color: PropTypes.oneOf(["primary", "secondary", "tertiary", "red"]),
-  variant: PropTypes.oneOf(["contained", "text", "rounded"]),
+  color: PropTypes.oneOf(["primary", "secondary", "tertiary", "red", "none"]),
+  variant: PropTypes.oneOf(["contained", "text", "rounded", "custom"]),
   size: PropTypes.oneOf(["sm", "md", "lg", "xl"]),
   className: PropTypes.string,
   type: PropTypes.string,
