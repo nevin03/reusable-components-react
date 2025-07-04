@@ -6,8 +6,11 @@ import { step4schema } from "@/utils/validations";
 import { toast } from "@/contexts/ToastContext";
 import bcrypt from "bcryptjs";
 import { LockKeyhole } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
-function UserPass() {
+function UserPass({ onBack, closeModal }) {
+  const navigate = useNavigate();
+
   const formik = useCustomForm({
     initialValues: {
       password: "",
@@ -20,10 +23,12 @@ function UserPass() {
         const payload = {
           password: hashedPassword,
         };
-        console.log("Payload to submit:", payload);
-        toast.success("Password set successfully!");
+        console.log("hashed payload:", payload);
+        toast.success("User successfully created!");
+        closeModal();
+        navigate("/users");
       } catch (error) {
-        toast.error("Something went wrong while setting the password.", error);
+        toast.error("Failed to set password.", error);
       } finally {
         setSubmitting(false);
       }
@@ -31,10 +36,10 @@ function UserPass() {
   });
 
   return (
-    <div className="max-w-xl mx-auto p-6 bg-white rounded shadow mt-10 text-center">
-      <div className="flex flex-col items-center justify-center mb-4">
-        <LockKeyhole className="w-8 h-8 text-primary-600" />
-        <h2 className="text-2xl font-bold mt-2">Set Password</h2>
+    <div className="max-w-xl mx-auto p-6 bg-white rounded shadow mt-10">
+      <div className="flex items-center gap-2 mb-4">
+        <LockKeyhole className="text-blue-600" />
+        <h2 className="text-2xl font-bold">Set Password</h2>
       </div>
 
       <form onSubmit={formik.handleSubmit} className="space-y-4">
@@ -55,7 +60,10 @@ function UserPass() {
           touched={formik.touched.confirmPassword}
         />
 
-        <div className="pt-4">
+        <div className="flex justify-between pt-4">
+          <Button type="button" onClick={onBack} variant="outline">
+            Back
+          </Button>
           <Button
             type="submit"
             color="primary"
@@ -63,7 +71,7 @@ function UserPass() {
             loading={formik.isSubmitting}
             disabled={formik.isSubmitting}
           >
-            Continue
+            Submit
           </Button>
         </div>
       </form>
