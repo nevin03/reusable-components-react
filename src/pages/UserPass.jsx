@@ -36,12 +36,7 @@ function UserPass({ onBack, closeModal }) {
   });
 
   return (
-    <div className="max-w-xl mx-auto p-6 bg-white rounded shadow mt-10">
-      <div className="flex items-center gap-2 mb-4">
-        <LockKeyhole className="text-blue-600" />
-        <h2 className="text-2xl font-bold">Set Password</h2>
-      </div>
-
+    <div>
       <form onSubmit={formik.handleSubmit} className="space-y-4">
         <Input
           label="Password"
@@ -61,7 +56,12 @@ function UserPass({ onBack, closeModal }) {
         />
 
         <div className="flex justify-between pt-4">
-          <Button type="button" onClick={onBack} variant="outline">
+          <Button
+            type="button"
+            onClick={onBack}
+            color="secondary"
+            variant="rounded"
+          >
             Back
           </Button>
           <Button
