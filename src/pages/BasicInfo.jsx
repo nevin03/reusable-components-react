@@ -1,4 +1,3 @@
-// src/pages/BasicInfo.jsx
 import React from "react";
 import { useCustomForm } from "@/hooks/useFormik";
 import { step1Schema } from "@/utils/validations";
@@ -84,7 +83,6 @@ const BasicInfo = ({ onNext }) => {
           error={formik.errors.role}
           touched={formik.touched.role}
         />
-
         <div className=" flex justify-end">
           <Button
             type="submit"

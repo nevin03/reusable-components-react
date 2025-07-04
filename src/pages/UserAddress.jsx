@@ -106,9 +106,4 @@ const UserAddress = ({ onNext, onBack }) => {
   );
 };
 
-UserAddress.propTypes = {
-  onNext: PropTypes.func.isRequired,
-  onBack: PropTypes.func.isRequired,
-};
-
 export default UserAddress;
