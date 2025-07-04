@@ -26,15 +26,16 @@ export const step3Schema = Yup.object({
   access: Yup.array().min(1, "Select at least one access"),
 });
 
-export const passwordSchema = Yup.object({
+export const step4schema = Yup.object({
   password: Yup.string()
     .required("Password is required")
     .min(8, "Password must be at least 8 characters")
-    .matches(/[a-z]/, "Password must contain at least one lowercase letter")
-    .matches(/[A-Z]/, "Password must contain at least one uppercase letter")
-    .matches(/\d/, "Password must contain at least one number")
-    .matches(
-      /[@$!%*?&#^()_\-+=]/,
-      "Password must contain at least one special character"
-    ),
+    .matches(/[a-z]/, "Must include at least one lowercase letter")
+    .matches(/[A-Z]/, "Must include at least one uppercase letter")
+    .matches(/\d/, "Must include at least one number")
+    .matches(/[@$!%*?&#^()_\-+=]/, "Must include one special character"),
+
+  confirmPassword: Yup.string()
+    .required("Please confirm your password")
+    .oneOf([Yup.ref("password")], "Passwords must match"),
 });
