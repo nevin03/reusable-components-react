@@ -5,7 +5,6 @@ import Button from "@/components/shared/Button";
 import { step4schema } from "@/utils/validations";
 import { toast } from "@/contexts/ToastContext";
 import bcrypt from "bcryptjs";
-import { LockKeyhole } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 function UserPass({ onBack, closeModal }) {
@@ -24,7 +23,7 @@ function UserPass({ onBack, closeModal }) {
           password: hashedPassword,
         };
         console.log("hashed payload:", payload);
-        toast.success("User successfully created!");
+        toast.success(" User successfully created!");
         closeModal();
         navigate("/users");
       } catch (error) {

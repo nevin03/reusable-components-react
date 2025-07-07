@@ -29,7 +29,3 @@ src/Login.jsx
 *storybook.log
 storybook-static
 
-src/hooks/useAuth.js
-src/pages/UsersData.jsx
-src/store/useFormStore.js
-vite.config.js

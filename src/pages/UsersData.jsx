@@ -45,6 +45,15 @@ const UsersData = () => {
   const data = [
     { name: "Alice Johnson", role: "Admin" },
     { name: "Bob Smith", role: "Manager" },
+    { name: "Alice Johnson", role: "Admin" },
+    { name: "Bob Smith", role: "Manager" },
+    { name: "Carol Lee", role: "User" },
+    { name: "Alice Johnson", role: "Admin" },
+    { name: "Bob Smith", role: "Manager" },
+    { name: "Carol Lee", role: "User" },
+    { name: "Carol Lee", role: "User" },
+    { name: "Alice Johnson", role: "Admin" },
+    { name: "Bob Smith", role: "Manager" },
     { name: "Carol Lee", role: "User" },
   ];
 
@@ -71,7 +80,7 @@ const UsersData = () => {
       </nav>
       {/* Main Content */}
       <div className="flex-1 p-6 space-y-6">
-        <Table columns={columns} data={data} initialPageSize={2} />
+        <Table columns={columns} data={data} initialPageSize={10} />
       </div>
     </div>
   );

@@ -42,7 +42,7 @@ const StepperModal = () => {
         Add User
       </Button>
 
-      <ModalUI modalTitle={steps[step].title} size="md">
+      <ModalUI modalTitle={steps[step].title} size="md" height="lg">
         {steps[step].component}
       </ModalUI>
     </>

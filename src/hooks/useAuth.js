@@ -9,7 +9,7 @@ const useAuth = () => {
   const fetchData = useCallback(
     async ({ url, method, body = null, params = null }) => {
       if (!method) {
-        throw new Error("HTTP method is required");
+        console.log("HTTP method is required");
       }
 
       setIsLoading(true);
